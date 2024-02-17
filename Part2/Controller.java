@@ -316,6 +316,9 @@ public class Controller {
     }
 
     public void addStudentSubjects(ChoiceBox<String> courseAdded) {
+        
+        
+
 
         if (courseAdded.getValue().equals("CS214")) {
 
@@ -328,10 +331,12 @@ public class Controller {
                     model.getStudentPastRecordHashMap());
             Set<String> pastRecord = new HashSet<>();
             HashMap<Integer, Integer> studentCreditHashMap = new HashMap<Integer, Integer>(model.getStudentCreditHashMap());
+            Integer coursework = studentCreditHashMap.get(model.currentUser);
 
             pastRecord = studentPastRecordHashMap.get(model.currentUser);
+            studentCreditHashMap.put(model.currentUser, (coursework + 4));
 
-            if (pastRecord.contains("CS113")) {
+            if (pastRecord.contains("CS113") && (studentCreditHashMap.get(model.currentUser)) < 12) {
                 addToHashMap(courseAssignStudentHashMap, course, model.currentUser);
                 addToHashMapStudent(studentAsignCourseHashMap, model.currentUser, course);
 
@@ -339,7 +344,7 @@ public class Controller {
                 model.setSubjectRecordHashMap(courseAssignStudentHashMap);
                 
                 view.errorMessenge("Sucessfully Registered for " + course, "Register Sucess");
-                studentCreditHashMap.put(model.currentUser, 4);
+                
                 model.setStudentCreditHashMap(studentCreditHashMap);
                 System.out.println("Student Record" + studentAsignCourseHashMap);
 
@@ -348,11 +353,12 @@ public class Controller {
 
             else
                 view.errorMessenge("Requirement is not met", "Requirement is not met");
+                studentCreditHashMap.put(model.currentUser, (coursework - 4));
             return;
 
         }
 
-        if (courseAdded.getValue().equals("CS224")) {
+       else if (courseAdded.getValue().equals("CS224")) {
 
             HashMap<Integer, Set<String>> studentAsignCourseHashMap = new HashMap<Integer, Set<String>>(
                     model.getStudentRecordHashMap());
@@ -363,12 +369,14 @@ public class Controller {
                     model.getStudentPastRecordHashMap());
             Set<String> pastRecord = new HashSet<>();
             HashMap<Integer, Integer> studentCreditHashMap = new HashMap<Integer, Integer>(model.getStudentCreditHashMap());
-            studentCreditHashMap.put(model.currentUser, 4);
+            Integer coursework = studentCreditHashMap.get(model.currentUser);
+
+            studentCreditHashMap.put(model.currentUser, (coursework+4));
 
 
             pastRecord = studentPastRecordHashMap.get(model.currentUser);
 
-            if (pastRecord.contains("CS123")) {
+            if (pastRecord.contains("CS123") && (studentCreditHashMap.get(model.currentUser)) < 12) {
                 addToHashMap(courseAssignStudentHashMap, course, model.currentUser);
                 addToHashMapStudent(studentAsignCourseHashMap, model.currentUser, course);
 
@@ -384,11 +392,12 @@ public class Controller {
 
             else
                 view.errorMessenge("Requirement is not met", "Requirement is not met");
+                studentCreditHashMap.put(model.currentUser, (coursework - 4));
             return;
 
         }
 
-        if (courseAdded.getValue().equals("CS234")) {
+        else if (courseAdded.getValue().equals("CS234")) {
 
             HashMap<Integer, Set<String>> studentAsignCourseHashMap = new HashMap<Integer, Set<String>>(
                     model.getStudentRecordHashMap());
@@ -399,10 +408,14 @@ public class Controller {
                     model.getStudentPastRecordHashMap());
             Set<String> pastRecord = new HashSet<>();
             HashMap<Integer, Integer> studentCreditHashMap = new HashMap<Integer, Integer>(model.getStudentCreditHashMap());
-            studentCreditHashMap.put(model.currentUser, 4);
+            Integer coursework = studentCreditHashMap.get(model.currentUser);
+
+            studentCreditHashMap.put(model.currentUser, 4 + coursework);
 
 
             pastRecord = studentPastRecordHashMap.get(model.currentUser);
+
+            if (studentCreditHashMap.get(model.currentUser) < 12) {
 
                 addToHashMap(courseAssignStudentHashMap, course, model.currentUser);
                 addToHashMapStudent(studentAsignCourseHashMap, model.currentUser, course);
@@ -415,13 +428,23 @@ public class Controller {
                 System.out.println("Student Record" + studentAsignCourseHashMap);
 
                 System.out.println("Course Recoed" + courseAssignStudentHashMap);
+            }
+
+            else {view.errorMessenge("Requirement is not met", "Requirement is not met");
+            studentCreditHashMap.put(model.currentUser, 4 - coursework);
+            return;}
+
+
+               
             
 
         
 
         }
 
-        if (courseAdded.getValue().equals("CS316")) {
+    
+
+        else if (courseAdded.getValue().equals("CS316")) {
 
             HashMap<Integer, Set<String>> studentAsignCourseHashMap = new HashMap<Integer, Set<String>>(
                     model.getStudentRecordHashMap());
@@ -439,8 +462,8 @@ public class Controller {
 
             pastRecord = studentPastRecordHashMap.get(model.currentUser);
 
-            if (pastRecord.contains("CS133") && pastRecord.contains("CS214")
-                    && studentCompleteCreditHashMap.get(model.currentUser) <= 15) {
+            if (pastRecord.contains("CS133") && pastRecord.contains("CS214") 
+                    && studentCompleteCreditHashMap.get(model.currentUser) <= 15 && (studentCreditHashMap.get(model.currentUser)) < 12) {
                 addToHashMap(courseAssignStudentHashMap, course, model.currentUser);
                 addToHashMapStudent(studentAsignCourseHashMap, model.currentUser, course);
 
@@ -469,8 +492,9 @@ public class Controller {
                     model.getSubjectRecordHashMap());
             String course = courseAdded.getValue();
             HashMap<Integer, Integer> studentCreditHashMap = new HashMap<Integer, Integer>(model.getStudentCreditHashMap());
+            Integer coursework = studentCreditHashMap.get(model.currentUser);
 
-            if (courseAdded.getValue() != null) {
+            if (studentCreditHashMap.get(model.currentUser) < 12){
                 addToHashMap(courseAssignStudentHashMap, course, model.currentUser);
                 addToHashMapStudent(studentAsignCourseHashMap, model.currentUser, course);
 
@@ -481,12 +505,12 @@ public class Controller {
                 System.out.println("Student Record" + studentAsignCourseHashMap);
 
                 System.out.println("Course Recoed" + courseAssignStudentHashMap);
-                studentCreditHashMap.put(model.currentUser, 3);
+                studentCreditHashMap.put(model.currentUser, (coursework+3));
                 model.setStudentCreditHashMap(studentCreditHashMap);
             }
 
             else
-                view.errorMessenge("Select a Subject", "Select a Subject");
+                view.errorMessenge("Credit Hour Limited", "Credit Limit");
 
         }
 
