@@ -58,6 +58,7 @@ public class View extends Application {
 
     }
 
+    // Display the login screen when the program is executed
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.window = primaryStage;
@@ -65,6 +66,7 @@ public class View extends Application {
         logInMenu();
     }
 
+    // Login screen styling with input bar for ID and password
     public void logInMenu() {
         window.setTitle("Trimester Sceduler");
 

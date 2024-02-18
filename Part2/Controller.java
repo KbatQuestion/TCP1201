@@ -16,29 +16,18 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 
-// Any object that has view. is just Gui windows that you guys can call
-// view.setStudentMainMenuScene - MainMenuScene for the Student
-// view.setTeacherMainMenuScene - MainMenuScene for the Teacher
-// view.setAdminMainMenuScene - MainMenuScene for the Admin
-// view.logInMenu - Login Screen
-// view.errorMessenge("Text", "Title"); - Error Mesage but you have pass the two vatiable
-// view.createUser - Menu to create User
-// view.createCoursesGui-Menu to Create Course
-
-//Any Function in this File is just action when someone click the button in the gui
-// For the Function just pass the argument/paramaters (you ask me!) to make a new Function
-// Make sure to Use Class
-
+// Handle all the methods to be called
 public class Controller {
     View view;
     Model model = new Model();
     ModelTable modelTable = new ModelTable();
 
+    // 
     public Controller(View view) {
         this.view = view;
     }
 
-    // Credential Logic
+    // Credential Logic for verification purpose
     public void isCredentialValid(String password, String id) {
 
         if (containsOnlyNumbers(id)) {
@@ -96,6 +85,7 @@ public class Controller {
         }
     }
 
+    // Create a user (Student/Lecturer) in the system
     public void createUser(String name, String id, String password, CheckBox teacherCheckBox,
             CheckBox studentCheckBox) {
 
@@ -144,8 +134,6 @@ public class Controller {
                 hash_Set.add("CS234");
                 hash_Set.add("CS316");
 
-                // hash_Set2.add(null);
-
                 tempStudentPasswordHashMap.put(idInt, password);
                 tempStudentNameHashMap.put(idInt, name);
                 studentFutureRecordHashMap.put(idInt, hash_Set);
@@ -176,10 +164,13 @@ public class Controller {
 
     }
 
+    // Check if the input ID is in integer only and not contain any alphabets
     private static boolean containsOnlyNumbers(String str) {
+        // return false or true for the condition
         return str.matches("[0-9]+");
     }
 
+    // Create a course in the system 
     public void createCourse(ChoiceBox<String> courseNameBox, ChoiceBox<String> lectureName) {
 
         if (lectureName.getValue() != null || courseNameBox.getValue() != null) {
@@ -228,9 +219,11 @@ public class Controller {
 
     }
 
+    // Return the key for a specific value
     private static Integer getKeyByValue(HashMap<Integer, String> map, String value) {
         for (Map.Entry<Integer, String> entry : map.entrySet()) {
             if (value.equals(entry.getValue())) {
+                // Return the key if the value is found inside the hash map
                 return entry.getKey();
             }
         }
@@ -238,6 +231,7 @@ public class Controller {
         return null;
     }
 
+    // Create all lecturers as choice to be selected in certain scenarios
     public String[] populateLecureChoiceBox() {
 
         HashMap<Integer, String> TeacherNameHashMap = new HashMap<Integer, String>(model.getTeacherNameHashMap());
@@ -251,10 +245,12 @@ public class Controller {
             stringArray[index++] = TeacherNameHashMap.get(key);
         }
 
+        // return all the elements in the array
         return stringArray;
 
     }
 
+    // Create courses as choice to be selected in certain scenarios for the specific semester
     public String[] populateCourseChoiceBox() {
 
         Set<String> courseAvailablSet = new HashSet<String>(model.getCourseAvailablSet());
@@ -263,9 +259,11 @@ public class Controller {
 
         System.arraycopy(courseAvailablSet.toArray(), 0, coursearray, 0, size);
         String[] stringArray = coursearray;
+        // return all the elements in the array
         return stringArray;
     }
 
+    // Create all courses in the system as choices to be selected 
     public ArrayList<String> populateCourseCreatorChoiceBox() {
 
         ArrayList<String> arrayList = new ArrayList<>();
@@ -277,9 +275,11 @@ public class Controller {
         arrayList.add("CS224");
         arrayList.add("CS234");
         arrayList.add("CS316");
+        // return all the elements in the array
         return arrayList;
     }
 
+    // 
     public String[] populateLectureCourseChoiceBox() {
 
         HashMap<Integer, ArrayList<String>> teacherAsignCourseHashMap = new HashMap<Integer, ArrayList<String>>(
@@ -287,10 +287,11 @@ public class Controller {
         ArrayList<String> arrayList = teacherAsignCourseHashMap.get(model.currentUser);
         String[] stringArray = new String[arrayList.size()];
         stringArray = arrayList.toArray(stringArray);
-
+        // return all the elements in the array
         return stringArray;
     }
 
+    // Display table of information with columns such as name, ID and course code
     public ObservableList<ModelTable> getTableAdmin() {
         ObservableList<ModelTable> table = FXCollections.observableArrayList();
         HashMap<Integer, String> teacherNameHashMap = new HashMap<Integer, String>(model.getTeacherNameHashMap());
@@ -312,14 +313,12 @@ public class Controller {
             table.add(new ModelTable(name12, id12, course));
         }
 
+        // Display the table
         return table;
     }
 
+    // Register courses selected by the student
     public void addStudentSubjects(ChoiceBox<String> courseAdded) {
-        
-        
-
-
         if (courseAdded.getValue().equals("CS214")) {
 
             HashMap<Integer, Set<String>> studentAsignCourseHashMap = new HashMap<Integer, Set<String>>(
@@ -433,17 +432,7 @@ public class Controller {
             else {view.errorMessenge("Requirement is not met", "Requirement is not met");
             studentCreditHashMap.put(model.currentUser, 4 - coursework);
             return;}
-
-
-               
-            
-
-        
-
         }
-
-    
-
         else if (courseAdded.getValue().equals("CS316")) {
 
             HashMap<Integer, Set<String>> studentAsignCourseHashMap = new HashMap<Integer, Set<String>>(
@@ -516,6 +505,7 @@ public class Controller {
 
     }
 
+    //  
     private static void addToHashMap(HashMap<String, Set<Integer>> hashMap, String key, int value) {
         hashMap.putIfAbsent(key, new HashSet<>());
 
@@ -523,6 +513,7 @@ public class Controller {
         set.add(value);
     }
 
+    // Store student's ID with their registered courses
     private static void addToHashMapStudent(HashMap<Integer, Set<String>> hashMap, int key, String value) {
         hashMap.putIfAbsent(key, new HashSet<>());
 
@@ -530,6 +521,7 @@ public class Controller {
         set.add(value);
     }
 
+    // Display table with information such as lecturer's name and their assigned courses
     public ObservableList<ModelTable> tableLectureSelectedCourse(ChoiceBox<String> selectedSubject) {
         ObservableList<ModelTable> tableLecture = FXCollections.observableArrayList();
 
@@ -554,10 +546,11 @@ public class Controller {
             System.out.println(currentValue);
 
         }
-
+        // Display the table
         return tableLecture;
     }
 
+    // Display a table of all users which has registered or assigned to the specific course 
     public ObservableList<ModelTable> tableAdminSelectedCourse(ChoiceBox<String> selectedSubject) {
 
         ObservableList<ModelTable> tableLecture = FXCollections.observableArrayList();
@@ -589,10 +582,11 @@ public class Controller {
             System.out.println(name);
             System.out.println(currentValue);
         }
-
+        // Display the table
         return tableLecture;
     }
 
+    // Check whether the student has reach the minimum credits needed for the semester
     public void checkMinCourseWork() {
 
         HashMap<Integer, Integer> studentCreditHashMap = new HashMap<Integer, Integer>(model.getStudentCreditHashMap());
@@ -608,29 +602,36 @@ public class Controller {
 
     }
 
+    // Get courses for the upcoming semester
     public Set<String> getStudentFutureRecord() {
         HashMap<Integer, Set<String>> studentFutureRecordHashMap = new HashMap<Integer, Set<String>>(
                 model.getStudentFutureRecordHashMap());
         Set<String> future = new HashSet<>(studentFutureRecordHashMap.get(model.currentUser));
+        // return the elements inside the set
         return future;
     }
 
+    // Get courses for the previous semester
     public Set<String> getStudentPastRecord() {
         HashMap<Integer, Set<String>> studentPastRecordHashMap = new HashMap<Integer, Set<String>>(
                 model.getStudentPastRecordHashMap());
         Set<String> past = new HashSet<>(studentPastRecordHashMap.get(model.currentUser));
+        // return the elements inside the set
         return past;
     }
 
+    // Get courses for the current semester
     public Set<String> getStudentRecord() {
         HashMap<Integer, Set<String>> studentRecordHashMap = new HashMap<Integer, Set<String>>(
                 model.getStudentRecordHashMap());
         Set<String> current = new HashSet<>(studentRecordHashMap.get(model.currentUser));
+        // return the elements inside the set
         return current;
     }
 
     public int currenTrimInteger = 1;
 
+    // Allows the change of semester from semester 1 to semester 3
     public void trimesterSystem(String trimester_num) {
         HashMap<Integer, Set<String>> tempstudentRecordHashMap = new HashMap<>(model.getStudentRecordHashMap());
         HashMap<Integer, Set<String>> tempstudentPastRecordHashMap = new HashMap<>(model.getStudentPastRecordHashMap());

@@ -6,132 +6,76 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Model {
-    // //private HashMap<String, ArrayList<String>> teacherLoginMap = new
-    // HashMap<String, ArrayList<String>>();
-    // //private HashMap<String, ArrayList<String>> studentLoginMap = new
-    // HashMap<String, ArrayList<String>>();
-
-    // // Student Hashmap key = id
-    // // name
-    // // password
-    // // Student Course taken
-    // // Course Hour
-
-    // // Teacher Hasmap key = id
-    // // name
-    // // password
-    // // Asssign Course
-
-    // // Admin/Teacher Hasmap
-
-    // // key = course name value = id
-    // // Course and Register to the Lecture
-    // // Course with Register Student
-
-    // // Getter
-    // public HashMap<String, ArrayList<String>> getTeacherHashMap() {
-    // return teacherLoginMap;
-    // }
-
-    // // Setter
-    // public void setTeacherHashMap(HashMap<String, ArrayList<String>>
-    // newTeacherLoginMap) {
-    // this.teacherLoginMap = newTeacherLoginMap;
-    // }
-
-    // // Getter
-    // public HashMap<String, ArrayList<String>> getStudentHashMap() {
-    // return studentLoginMap;
-    // }
-
-    // // Setter
-    // public void setStudentHashMap(HashMap<String, ArrayList<String>>
-    // newstudentLoginMap) {
-    // this.studentLoginMap = newstudentLoginMap;
-    // }
-
-    // Old Code Above will be Remove
-
-    // Student Hashmap key = id
-    // name
-    // password
-    // Student Course taken
-    // Course Hour
-
-    // Teacher Hasmap key = id
-    // name
-    // password
-    // Asssign Course
-
-    // Admin/Teacher Hasmap
-
-    // key = course name value = id
-    // Course and Register to the Lecture
-    // Course with Register Student
-    // Course with Pre-reqsite //Implement Later
-    // Course Credit Hour //Implement Later
-
-    // Sets
-    // Course available to be registerd
 
     public Integer currentUser;
     public Integer currenTrimInteger = 1;
     public Set<Integer> takenID = new HashSet<Integer>();
 
-
-
+    // Store course code and their course hour
     private HashMap<String, Integer> subjectCourseHour = new HashMap<String, Integer>();
+    // Store course code and their prerequisite subjects
     public HashMap<String, Set<String>> subjectPreRequsiteHashMap = new HashMap<String, Set<String>>();
 
+    // Store teacher's ID and their respective password
     private HashMap<Integer, String> teacherPasswordHashMap = new HashMap<Integer, String>();
+    // Store teacher's ID and their respective name
     private HashMap<Integer, String> teacherNameHashMap = new HashMap<Integer, String>();
+    // Store teacher's ID and the course assigned to them
     private HashMap<Integer, ArrayList<String>> teacherAsignCourseHashMap = new HashMap<Integer, ArrayList<String>>();
 
+    // Store student's ID and their respective password
     private HashMap<Integer, String> studentPasswordHashMap = new HashMap<Integer, String>();
+    // Store student's ID and their respective name
     private HashMap<Integer, String> studentNameHashMap = new HashMap<Integer, String>();
+    // Store student's ID and their current registered course
     private HashMap<Integer, Set<String>> studentRecordHashMap = new HashMap<Integer, Set<String>>();
+    // Store student's ID and their past registered course
     private HashMap<Integer, Set<String>> studentPastRecordHashMap = new HashMap<Integer, Set<String>>();
+    // Store student's ID and their course for upcoming semester
     private HashMap<Integer, Set<String>> studentFutureRecordHashMap = new HashMap<Integer, Set<String>>();
+    // Store student's ID and their total credits
     private HashMap<Integer, Integer> studentCreditHashMap = new HashMap<Integer, Integer>();
+    // Store student's ID and their credits for completed course
     private HashMap<Integer, Integer> studentCompletedCreditHashMap = new HashMap<Integer, Integer>();
 
-
+    // Store teacher's ID and the assigned course code
     private HashMap<String, Integer> lectureRecordHashMap = new HashMap<String, Integer>();
-
+    //
     private HashMap<String, Set<Integer>> subjectRecordHashMap = new HashMap<String, Set<Integer>>();
+    // Store all courses in the system
     private Set<String> courseAvailablSet = new HashSet<String>();
 
-    // Getter
+    // Getter to get all the keys and values inside the teacherPasswordHashMap
     public HashMap<Integer, String> getTeacherPasswordHashMap() {
         return teacherPasswordHashMap;
     }
 
-    // Setter
+    // Setter to copy the keys and values of the called hash map to teacherPasswordHashmap
     public void setTeacherPasswordHashMap(HashMap<Integer, String> newTeacherPaswordHashMap) {
         this.teacherPasswordHashMap = newTeacherPaswordHashMap;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the teacherNameHashMap
     public HashMap<Integer, String> getTeacherNameHashMap() {
         return teacherNameHashMap;
     }
 
-    // Setter
+    // Setter to copy the keys and values of the called hash map to teacherNameHashMap
     public void setTeacherNameHashMap(HashMap<Integer, String> newTeacherNameHashMap) {
         this.teacherNameHashMap = newTeacherNameHashMap;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the teacherAsignCourseHashMap
     public HashMap<Integer, ArrayList<String>> getTeacherAsignCourseHashMap() {
         return teacherAsignCourseHashMap;
     }
 
-    // Setter
+    // Setter to copy the keys and values of the called hash map to teacherAsignCourseHashMap
     public void setTeacherAsignCourseHashMap(HashMap<Integer, ArrayList<String>> newTeacherAsignCourseHashMap) {
         this.teacherAsignCourseHashMap = newTeacherAsignCourseHashMap;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the studentPasswordHashMap
     public HashMap<Integer, String> getStudentPasswordHashMap() {
         return studentPasswordHashMap;
     }
@@ -141,7 +85,7 @@ public class Model {
         this.studentPasswordHashMap = newStudentPaswordHashMap;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the studentNameHashMap
     public HashMap<Integer, String> getStudentNameHashMap() {
         return studentNameHashMap;
     }
@@ -151,7 +95,7 @@ public class Model {
         this.studentNameHashMap = newStudentNameHashMap;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the studentRecordHashMap
     public HashMap<Integer, Set<String>> getStudentRecordHashMap() {
         return studentRecordHashMap;
     }
@@ -161,7 +105,7 @@ public class Model {
         this.studentRecordHashMap = newStudentRecordHashMap;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the lectureRecordHashMap
     public HashMap<String, Integer> getLectureRecordHashMap() {
         return lectureRecordHashMap;
     }
@@ -171,7 +115,7 @@ public class Model {
         this.lectureRecordHashMap = newAssignLectureHashMap;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the subjectRecordHashMap
     public HashMap<String, Set<Integer>> getSubjectRecordHashMap() {
         return subjectRecordHashMap;
     }
@@ -181,7 +125,7 @@ public class Model {
         this.subjectRecordHashMap = newAssignStudentHashMapp;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the courseAvailablSet
     public Set<String> getCourseAvailablSet() {
         return courseAvailablSet;
     }
@@ -191,7 +135,7 @@ public class Model {
         this.courseAvailablSet = newCourseAvailablSet;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the studentFutureRecordHashMap
     public HashMap<Integer, Set<String>> getStudentFutureRecordHashMap() {
         return studentFutureRecordHashMap;
     }
@@ -201,7 +145,7 @@ public class Model {
         this.studentFutureRecordHashMap = newStudentFutureRecordHashMap;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the studentPastRecordHashMap
     public HashMap<Integer, Set<String>> getStudentPastRecordHashMap() {
         return studentPastRecordHashMap;
     }
@@ -211,7 +155,7 @@ public class Model {
         this.studentPastRecordHashMap = newStudentPastRecordHashMap;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the subjectCourseHour
     public HashMap<String, Integer> getSubjectCourseHour() {
         return subjectCourseHour;
     }
@@ -221,7 +165,7 @@ public class Model {
         this.subjectCourseHour = newSubjectCourseHour;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the studentCreditHashMap
     public HashMap<Integer, Integer> getStudentCreditHashMap() {
         return studentCreditHashMap;
     }
@@ -231,15 +175,17 @@ public class Model {
         this.studentCreditHashMap = newStudentCreditHashMap;
     }
 
+    // Getter to get all the keys and values inside the subjectPreRequisiteHashMap
     public HashMap<String, Set<String>> getSubtjectPreRequsiteHashMap() {
         return subjectPreRequsiteHashMap;
     }
 
+    // Setter
     public void setSubtjectPreRequsiteHashMap(HashMap<String, Set<String>> newSubjectPreRequsiteHashMap) {
         this.subjectPreRequsiteHashMap = newSubjectPreRequsiteHashMap;
     }
 
-    // Getter
+    // Getter to get all the keys and values inside the studentCompletedCreditHashMap
     public HashMap<Integer, Integer> getStudentCompletedCreditHashMap() {
         return studentCompletedCreditHashMap;
     }
